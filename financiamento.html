@@ -406,6 +406,82 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding:62px 0 26
 .sent.show{display:block}
 .sent .big{font-family:'Bebas Neue';font-size:2.4rem;color:var(--cor-light);margin-bottom:10px}
 .sent p{color:var(--txt-mut);font-weight:300;margin-bottom:24px}
+
+/* ============================================================
+   MODAL DO VEÍCULO — galeria + ficha
+   ============================================================ */
+.vm{position:fixed;inset:0;z-index:9400;display:none;align-items:center;justify-content:center;padding:20px}
+.vm.open{display:flex}
+.vm-bg{position:absolute;inset:0;background:rgba(6,5,5,.82);backdrop-filter:blur(6px)}
+.vm-box{position:relative;z-index:2;width:min(980px,100%);max-height:92vh;overflow-y:auto;background:var(--card);border:1px solid var(--line);border-radius:20px;animation:vmIn .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes vmIn{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+.vm-box::-webkit-scrollbar{width:8px}
+.vm-close{position:absolute;top:14px;right:14px;z-index:5;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(11,10,9,.8);backdrop-filter:blur(6px);color:var(--txt);font-size:1.2rem;line-height:1;cursor:pointer;transition:.3s}
+.vm-close:hover{border-color:var(--cor);color:var(--cor-light)}
+
+/* Galeria */
+.vm-gal{position:relative;background:#0f0d0c;border-radius:20px 20px 0 0;overflow:hidden}
+.vm-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
+.vm-track::-webkit-scrollbar{display:none}
+.vm-track img{flex:0 0 100%;scroll-snap-align:center;width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.vm-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(11,10,9,.75);backdrop-filter:blur(6px);color:var(--txt);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s}
+.vm-arrow svg{width:18px;height:18px}
+.vm-arrow:hover{border-color:var(--cor);color:var(--cor-light)}
+.vm-arrow.prev{left:14px}.vm-arrow.next{right:14px}
+.vm-dots{position:absolute;left:0;right:0;bottom:14px;z-index:3;display:flex;justify-content:center;gap:7px}
+.vm-dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:rgba(239,236,223,.4);cursor:pointer;transition:.3s}
+.vm-dot[aria-current="true"]{background:var(--cor-light);width:20px;border-radius:4px}
+.vm-conta{position:absolute;top:14px;left:14px;z-index:3;font-size:.7rem;letter-spacing:.1em;padding:6px 12px;border-radius:50px;background:rgba(11,10,9,.78);border:1px solid var(--line);color:var(--txt-mut)}
+.vm-gal.solo .vm-arrow,.vm-gal.solo .vm-dots,.vm-gal.solo .vm-conta{display:none}
+
+/* Conteúdo */
+.vm-in{padding:30px}
+.vm-tag{display:inline-block;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:5px 11px;border-radius:50px;background:rgba(214,89,69,.12);border:1px solid var(--cor-deep);color:var(--cor-light);margin-bottom:12px}
+.vm-marca{font-size:.72rem;letter-spacing:.15em;color:var(--cor);text-transform:uppercase;font-weight:600}
+.vm-modelo{font-family:'Bebas Neue';font-size:clamp(2rem,4.5vw,2.9rem);line-height:1;margin:4px 0 6px}
+.vm-versao{color:var(--txt-mut);font-size:.92rem;font-weight:300;margin-bottom:20px}
+.vm-preco{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:22px}
+.vm-preco b{font-family:'Bebas Neue';font-size:2.6rem;color:var(--cor-light);line-height:1}
+.vm-preco b.consulta{font-size:1.7rem}
+.vm-preco span{font-size:.78rem;color:var(--txt-dim);text-transform:uppercase;letter-spacing:.08em}
+.vm-ficha{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:22px}
+.vm-ficha div{background:var(--card-2);padding:14px 16px}
+.vm-ficha small{display:block;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:5px}
+.vm-ficha b{font-size:.92rem;font-weight:600}
+.vm-opc h4{font-family:'Bebas Neue';font-size:1.2rem;letter-spacing:.05em;margin-bottom:12px;color:var(--cor-light)}
+.vm-opc ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.vm-opc li{font-size:.76rem;color:var(--txt-mut);background:var(--card-2);border:1px solid var(--line);padding:6px 12px;border-radius:50px}
+.vm-foot{display:flex;gap:12px;flex-wrap:wrap}
+.vm-foot .btn{flex:1;justify-content:center;min-width:180px}
+
+@media(max-width:680px){
+  .vm{padding:0}
+  .vm-box{max-height:100vh;border-radius:0;width:100%}
+  .vm-gal{border-radius:0}
+  .vm-in{padding:24px 20px 30px}
+  .vm-foot .btn{min-width:100%}
+}
+
+/* ============================================================
+   PAINEL DO VEÍCULO NA LP DE FINANCIAMENTO
+   ============================================================ */
+.fin-veiculo{display:none;grid-template-columns:260px 1fr;gap:0;background:var(--card);border:1px solid var(--cor-deep);border-radius:18px;overflow:hidden;margin-bottom:26px}
+.fin-veiculo.show{display:grid}
+.fin-veiculo img{width:100%;height:100%;min-height:180px;object-fit:cover}
+.fin-veiculo .fv-in{padding:26px 28px;display:flex;flex-direction:column;justify-content:center}
+.fin-veiculo .fv-tag{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cor);font-weight:600;margin-bottom:8px}
+.fin-veiculo h3{font-family:'Bebas Neue';font-size:1.9rem;line-height:1;margin-bottom:4px}
+.fin-veiculo .fv-ver{font-size:.82rem;color:var(--txt-dim);font-weight:300;margin-bottom:14px}
+.fin-veiculo .fv-meta{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:14px}
+.fin-veiculo .fv-meta div{font-size:.72rem;color:var(--txt-dim)}
+.fin-veiculo .fv-meta b{display:block;color:var(--txt);font-size:.86rem;font-weight:600}
+.fin-veiculo .fv-preco{font-family:'Bebas Neue';font-size:2rem;color:var(--cor-light);line-height:1}
+.fin-veiculo .fv-trocar{background:none;border:none;color:var(--txt-dim);font-family:'Sora';font-size:.76rem;text-decoration:underline;cursor:pointer;padding:0;margin-top:12px;align-self:flex-start}
+.fin-veiculo .fv-trocar:hover{color:var(--cor-light)}
+@media(max-width:680px){
+  .fin-veiculo{grid-template-columns:1fr}
+  .fin-veiculo img{aspect-ratio:16/9;min-height:0}
+}
 </style>
 </head>
 <body>
@@ -458,6 +534,8 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding:62px 0 26
 
 <section class="sec">
   <div class="wrap fin-wrap">
+
+    <div class="fin-veiculo" id="finVeiculo"></div>
 
     <div class="fin-note reveal">
       <span class="ic">•</span>
@@ -784,6 +862,10 @@ function normalizarRemoto(v){
   const anoTxt = (typeof v.ano === 'string' && v.ano.includes('/'))
     ? v.ano : `${anoFab || anoN || ''}/${anoN || ''}`;
 
+  /* Galeria: o webhook manda o array completo; o embutido tem foto única */
+  const fotos = Array.isArray(v.fotos) ? v.fotos.filter(Boolean) : [];
+  const capa = v.foto || fotos[0] || FOTO_FALLBACK;
+
   return {
     marca:  String(v.marca  || '').toUpperCase(),
     modelo: String(v.modelo || '').toUpperCase(),
@@ -796,10 +878,13 @@ function normalizarRemoto(v){
     carroceria: v.carroceria || v.tag || '',
     cambio: v.cambio || 'N/I',
     combustivel: v.combustivel || '',
+    cor: v.cor || '',
+    opcionais: Array.isArray(v.opcionais) ? v.opcionais.filter(Boolean) : [],
     precoNum: precoN || 0,
     anoNum: anoN || 0,
     kmNum: kmOk ? kmN : null,
-    foto: v.foto || (Array.isArray(v.fotos) && v.fotos[0]) || FOTO_FALLBACK,
+    foto: capa,
+    fotos: fotos.length ? fotos : [capa],
     url: v.url || 'estoque.html'
   };
 }
@@ -844,6 +929,7 @@ async function carregarEstoqueAoVivo(aoAtualizar){
 }
 
 
+
 /* Preenche a lista de veículos com o estoque real */
 function montarVeiculos(){
   const sel = document.getElementById('veiculo'); if(!sel) return;
@@ -857,14 +943,49 @@ function montarVeiculos(){
     sel.appendChild(o);
   });
   /* Se veio de um card com ?v=id, já deixa selecionado */
+}
+
+/* Painel do veículo escolhido, quando vem de um card (?v=id) */
+function montarPainelVeiculo(){
+  const painel = document.getElementById('finVeiculo');
+  const sel = document.getElementById('veiculo');
+  if(!painel || !sel) return;
+
   const id = new URLSearchParams(location.search).get('v');
-  if(id){
-    const v = ESTOQUE.find(x=>x.id===id);
-    if(v){
-      const preco = v.preco==='Sob Consulta' ? 'sob consulta' : 'R$ '+v.preco;
-      sel.value = `${v.marca} ${v.modelo} ${v.ano} (${preco})`;
-    }
-  }
+  const v = id ? ESTOQUE.find(x => String(x.id) === String(id)) : null;
+
+  if(!v){ painel.classList.remove('show'); painel.innerHTML=''; return; }
+
+  const consulta = v.preco === 'Sob Consulta';
+  const foto = (Array.isArray(v.fotos) && v.fotos[0]) || v.foto || FOTO_FALLBACK;
+
+  painel.innerHTML = `
+    <img src="${foto}" alt="${v.marca} ${v.modelo} ${v.ano}" onerror="this.onerror=null;this.src=FOTO_FALLBACK">
+    <div class="fv-in">
+      <span class="fv-tag">Simulando para</span>
+      <h3>${v.marca} ${v.modelo}</h3>
+      <p class="fv-ver">${v.versao}</p>
+      <div class="fv-meta">
+        <div>Ano<b>${v.ano}</b></div>
+        <div>KM<b>${v.km === 'N/I' ? 'Consulte' : v.km}</b></div>
+        <div>Câmbio<b>${v.cambio}</b></div>
+      </div>
+      <div class="fv-preco">${consulta ? 'Sob consulta' : 'R$ ' + v.preco}</div>
+      <button class="fv-trocar" type="button" id="trocarVeiculo">Simular para outro veículo</button>
+    </div>`;
+  painel.classList.add('show');
+
+  /* Deixa o select já apontando para ele */
+  const precoTxt = consulta ? 'sob consulta' : 'R$ ' + v.preco;
+  sel.value = `${v.marca} ${v.modelo} ${v.ano} (${precoTxt})`;
+
+  document.getElementById('trocarVeiculo').addEventListener('click', ()=>{
+    painel.classList.remove('show');
+    sel.value = '';
+    history.replaceState(null, '', location.pathname);
+    sel.focus();
+    sel.scrollIntoView({block:'center', behavior: SUAVE ? 'smooth' : 'auto'});
+  });
 }
 
 function mensagemFin(d){
@@ -895,7 +1016,8 @@ function mensagemFin(d){
 document.addEventListener('DOMContentLoaded', ()=>{
   initComum();
   montarVeiculos();
-  carregarEstoqueAoVivo(montarVeiculos);
+  montarPainelVeiculo();
+  carregarEstoqueAoVivo(()=>{ montarVeiculos(); montarPainelVeiculo(); });
   initForm('formFin', d=>{
     const link = WA(mensagemFin(d));
     const r = document.getElementById('reabrir'); if(r) r.href = link;
