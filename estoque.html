@@ -408,61 +408,6 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding:62px 0 26
 .sent p{color:var(--txt-mut);font-weight:300;margin-bottom:24px}
 
 /* ============================================================
-   MODAL DO VEÍCULO — galeria + ficha
-   ============================================================ */
-.vm{position:fixed;inset:0;z-index:9400;display:none;align-items:center;justify-content:center;padding:20px}
-.vm.open{display:flex}
-.vm-bg{position:absolute;inset:0;background:rgba(6,5,5,.82);backdrop-filter:blur(6px)}
-.vm-box{position:relative;z-index:2;width:min(980px,100%);max-height:92vh;overflow-y:auto;background:var(--card);border:1px solid var(--line);border-radius:20px;animation:vmIn .35s cubic-bezier(.2,.7,.2,1)}
-@keyframes vmIn{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
-.vm-box::-webkit-scrollbar{width:8px}
-.vm-close{position:absolute;top:14px;right:14px;z-index:5;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(11,10,9,.8);backdrop-filter:blur(6px);color:var(--txt);font-size:1.2rem;line-height:1;cursor:pointer;transition:.3s}
-.vm-close:hover{border-color:var(--cor);color:var(--cor-light)}
-
-/* Galeria */
-.vm-gal{position:relative;background:#0f0d0c;border-radius:20px 20px 0 0;overflow:hidden}
-.vm-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
-.vm-track::-webkit-scrollbar{display:none}
-.vm-track img{flex:0 0 100%;scroll-snap-align:center;width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
-.vm-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(11,10,9,.75);backdrop-filter:blur(6px);color:var(--txt);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s}
-.vm-arrow svg{width:18px;height:18px}
-.vm-arrow:hover{border-color:var(--cor);color:var(--cor-light)}
-.vm-arrow.prev{left:14px}.vm-arrow.next{right:14px}
-.vm-dots{position:absolute;left:0;right:0;bottom:14px;z-index:3;display:flex;justify-content:center;gap:7px}
-.vm-dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:rgba(239,236,223,.4);cursor:pointer;transition:.3s}
-.vm-dot[aria-current="true"]{background:var(--cor-light);width:20px;border-radius:4px}
-.vm-conta{position:absolute;top:14px;left:14px;z-index:3;font-size:.7rem;letter-spacing:.1em;padding:6px 12px;border-radius:50px;background:rgba(11,10,9,.78);border:1px solid var(--line);color:var(--txt-mut)}
-.vm-gal.solo .vm-arrow,.vm-gal.solo .vm-dots,.vm-gal.solo .vm-conta{display:none}
-
-/* Conteúdo */
-.vm-in{padding:30px}
-.vm-tag{display:inline-block;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:5px 11px;border-radius:50px;background:rgba(214,89,69,.12);border:1px solid var(--cor-deep);color:var(--cor-light);margin-bottom:12px}
-.vm-marca{font-size:.72rem;letter-spacing:.15em;color:var(--cor);text-transform:uppercase;font-weight:600}
-.vm-modelo{font-family:'Bebas Neue';font-size:clamp(2rem,4.5vw,2.9rem);line-height:1;margin:4px 0 6px}
-.vm-versao{color:var(--txt-mut);font-size:.92rem;font-weight:300;margin-bottom:20px}
-.vm-preco{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:22px}
-.vm-preco b{font-family:'Bebas Neue';font-size:2.6rem;color:var(--cor-light);line-height:1}
-.vm-preco b.consulta{font-size:1.7rem}
-.vm-preco span{font-size:.78rem;color:var(--txt-dim);text-transform:uppercase;letter-spacing:.08em}
-.vm-ficha{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:22px}
-.vm-ficha div{background:var(--card-2);padding:14px 16px}
-.vm-ficha small{display:block;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:5px}
-.vm-ficha b{font-size:.92rem;font-weight:600}
-.vm-opc h4{font-family:'Bebas Neue';font-size:1.2rem;letter-spacing:.05em;margin-bottom:12px;color:var(--cor-light)}
-.vm-opc ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-.vm-opc li{font-size:.76rem;color:var(--txt-mut);background:var(--card-2);border:1px solid var(--line);padding:6px 12px;border-radius:50px}
-.vm-foot{display:flex;gap:12px;flex-wrap:wrap}
-.vm-foot .btn{flex:1;justify-content:center;min-width:180px}
-
-@media(max-width:680px){
-  .vm{padding:0}
-  .vm-box{max-height:100vh;border-radius:0;width:100%}
-  .vm-gal{border-radius:0}
-  .vm-in{padding:24px 20px 30px}
-  .vm-foot .btn{min-width:100%}
-}
-
-/* ============================================================
    PAINEL DO VEÍCULO NA LP DE FINANCIAMENTO
    ============================================================ */
 .fin-veiculo{display:none;grid-template-columns:260px 1fr;gap:0;background:var(--card);border:1px solid var(--cor-deep);border-radius:18px;overflow:hidden;margin-bottom:26px}
@@ -481,6 +426,71 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding:62px 0 26
 @media(max-width:680px){
   .fin-veiculo{grid-template-columns:1fr}
   .fin-veiculo img{aspect-ratio:16/9;min-height:0}
+}
+
+/* ============================================================
+   MODAL DO VEÍCULO — galeria à esquerda, ficha à direita
+   ============================================================ */
+.vm{position:fixed;inset:0;z-index:9400;display:none;align-items:center;justify-content:center;padding:24px}
+.vm.open{display:flex}
+.vm-bg{position:absolute;inset:0;background:rgba(6,5,5,.85);backdrop-filter:blur(6px)}
+.vm-box{position:relative;z-index:2;width:min(1120px,100%);max-height:92vh;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1.12fr .88fr;animation:vmIn .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes vmIn{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+.vm-close{position:absolute;top:16px;right:16px;z-index:6;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(11,10,9,.85);backdrop-filter:blur(6px);color:var(--txt);font-size:1.1rem;line-height:1;cursor:pointer;transition:.3s}
+.vm-close:hover{border-color:var(--cor);color:var(--cor-light);transform:rotate(90deg)}
+
+/* Coluna da esquerda */
+.vm-left{background:#0f0d0c;display:flex;flex-direction:column;min-width:0}
+.vm-gal{position:relative;flex:1;min-height:0}
+.vm-track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
+.vm-track::-webkit-scrollbar{display:none}
+.vm-track img{flex:0 0 100%;scroll-snap-align:center;width:100%;height:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.vm-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border-radius:50%;border:1px solid rgba(239,236,223,.22);background:rgba(11,10,9,.7);backdrop-filter:blur(6px);color:var(--txt);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s}
+.vm-arrow svg{width:17px;height:17px}
+.vm-arrow:hover{border-color:var(--cor);color:var(--cor-light);background:rgba(11,10,9,.9)}
+.vm-arrow.prev{left:14px}.vm-arrow.next{right:14px}
+.vm-conta{position:absolute;right:14px;bottom:14px;z-index:3;font-family:'Sora';font-size:.72rem;padding:5px 12px;border-radius:50px;background:rgba(11,10,9,.8);border:1px solid rgba(239,236,223,.16);color:var(--txt-mut)}
+.vm-selo{position:absolute;left:14px;top:14px;z-index:3;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:6px 12px;border-radius:50px;background:rgba(11,10,9,.82);border:1px solid var(--cor-deep);color:var(--cor-light)}
+
+/* Miniaturas */
+.vm-thumbs{display:flex;gap:8px;padding:12px;overflow-x:auto;scrollbar-width:thin;background:#0b0a09;border-top:1px solid var(--line)}
+.vm-thumbs::-webkit-scrollbar{height:5px}
+.vm-thumbs::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+.vm-thumb{flex:0 0 84px;height:62px;padding:0;border:2px solid transparent;border-radius:8px;overflow:hidden;cursor:pointer;background:none;opacity:.55;transition:.25s}
+.vm-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.vm-thumb:hover{opacity:.85}
+.vm-thumb[aria-current="true"]{border-color:var(--cor);opacity:1}
+.vm-gal.solo ~ .vm-thumbs,.vm-gal.solo .vm-arrow,.vm-gal.solo .vm-conta{display:none}
+
+/* Coluna da direita */
+.vm-in{padding:34px 32px;overflow-y:auto;min-width:0}
+.vm-in::-webkit-scrollbar{width:8px}
+.vm-marca{font-size:.72rem;letter-spacing:.16em;color:var(--txt-mut);text-transform:uppercase;font-weight:500}
+.vm-modelo{font-family:'Bebas Neue';font-size:clamp(2.2rem,4vw,3rem);line-height:.95;margin:2px 0 6px}
+.vm-versao{color:var(--txt-mut);font-size:.88rem;font-weight:300;margin-bottom:18px}
+.vm-preco{font-family:'Bebas Neue';font-size:2.9rem;color:var(--cor-light);line-height:1;margin-bottom:6px}
+.vm-preco.consulta{font-size:1.9rem}
+.vm-preco-sub{font-size:.74rem;color:var(--txt-dim);letter-spacing:.06em;margin-bottom:22px}
+.vm-ficha{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:22px}
+.vm-ficha div{background:var(--card-2);padding:14px 16px}
+.vm-ficha small{display:block;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:5px}
+.vm-ficha b{font-size:.92rem;font-weight:600}
+.vm-opc h4{font-family:'Bebas Neue';font-size:1.15rem;letter-spacing:.06em;margin-bottom:12px;color:var(--cor-light)}
+.vm-opc ul{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}
+.vm-opc li{font-size:.74rem;color:var(--txt-mut);background:var(--card-2);border:1px solid var(--line);padding:6px 11px;border-radius:50px}
+.vm-foot{display:flex;flex-direction:column;gap:10px;position:sticky;bottom:-34px;background:linear-gradient(180deg,transparent,var(--card) 22%);padding-top:14px}
+.vm-foot .btn{justify-content:center;padding:15px}
+
+@media(max-width:920px){
+  .vm{padding:0}
+  .vm-box{grid-template-columns:1fr;max-height:100vh;border-radius:0;overflow-y:auto}
+  .vm-track img{aspect-ratio:4/3;height:auto}
+  .vm-in{padding:26px 22px 30px}
+  .vm-thumb{flex-basis:70px;height:52px}
+  .vm-foot{position:static;background:none;padding-top:6px}
+}
+@media(max-width:520px){
+  .vm-ficha{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -894,18 +904,33 @@ async function carregarEstoqueAoVivo(aoAtualizar){
 
 /* ============================================================
    MODAL DO VEÍCULO
-   Galeria com carrossel + ficha + WhatsApp como ação principal.
-   Com uma foto só, as setas, os pontos e o contador somem sozinhos —
-   quando o webhook do N8N entrar, o carrossel passa a funcionar
-   sem precisar mexer no código.
+   Galeria à esquerda com miniaturas, ficha à direita.
+
+   As fotos do AutoCerto seguem o padrão
+     .../fotos/3707/{codigo}/{n}_{carimbo}.jpg
+   com o mesmo carimbo para todas as imagens do mesmo veículo.
+   A galeria monta as candidatas a partir da capa e descarta as
+   que não existirem — assim o carrossel já funciona com o
+   estoque embutido. Quando o webhook do N8N entrar, ele manda
+   a lista exata e essa descoberta deixa de ser usada.
    ============================================================ */
 
-function fotosDe(v){
-  const lista = Array.isArray(v.fotos) && v.fotos.length ? v.fotos : [v.foto];
-  return lista.filter(Boolean);
+const MAX_FOTOS = 20;
+
+function candidatasAutoCerto(capa){
+  if (!capa || capa.startsWith('data:')) return capa ? [capa] : [];
+  const m = capa.match(/^(https?:\/\/[^?]*\/fotos\/\d+\/\d+\/)(\d+)(_\d+)?\.(jpg|jpeg|png|webp)$/i);
+  if (!m) return [capa];
+  const base = m[1], carimbo = m[3] || '', ext = m[4];
+  const lista = [];
+  for (let i = 1; i <= MAX_FOTOS; i++) lista.push(base + i + carimbo + '.' + ext);
+  return [capa].concat(lista.filter(u => u !== capa));
 }
 
-let vmAtual = null;
+function fotosDe(v){
+  if (Array.isArray(v.fotos) && v.fotos.length > 1) return v.fotos.filter(Boolean);
+  return candidatasAutoCerto(v.foto);
+}
 
 function montarModal(){
   if (document.getElementById('vm')) return;
@@ -919,12 +944,15 @@ function montarModal(){
     <div class="vm-bg" data-fechar></div>
     <div class="vm-box">
       <button class="vm-close" type="button" data-fechar aria-label="Fechar">✕</button>
-      <div class="vm-gal" id="vmGal">
-        <span class="vm-conta" id="vmConta"></span>
-        <div class="vm-track" id="vmTrack"></div>
-        <button class="vm-arrow prev" type="button" data-vm="ant" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <button class="vm-arrow next" type="button" data-vm="prox" aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button>
-        <div class="vm-dots" id="vmDots"></div>
+      <div class="vm-left">
+        <div class="vm-gal" id="vmGal">
+          <span class="vm-selo" id="vmSelo"></span>
+          <div class="vm-track" id="vmTrack"></div>
+          <button class="vm-arrow prev" type="button" data-vm="ant" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="vm-arrow next" type="button" data-vm="prox" aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button>
+          <span class="vm-conta" id="vmConta"></span>
+        </div>
+        <div class="vm-thumbs" id="vmThumbs"></div>
       </div>
       <div class="vm-in" id="vmIn"></div>
     </div>`;
@@ -947,6 +975,15 @@ function montarModal(){
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(sincronizarFoto);
   }, { passive: true });
+
+  document.getElementById('vmThumbs').addEventListener('click', ev => {
+    const b = ev.target.closest('.vm-thumb'); if (!b) return;
+    irParaFoto([...document.getElementById('vmThumbs').children].indexOf(b));
+  });
+}
+
+function fotosVivas(){
+  return [...document.getElementById('vmTrack').children];
 }
 
 function indiceFoto(){
@@ -954,75 +991,94 @@ function indiceFoto(){
   return t.clientWidth ? Math.round(t.scrollLeft / t.clientWidth) : 0;
 }
 
-function passarFoto(dir){
+function irParaFoto(i){
   const t = document.getElementById('vmTrack');
-  const n = t.children.length;
+  const n = fotosVivas().length;
   if (n < 2) return;
-  const i = Math.max(0, Math.min(n - 1, indiceFoto() + dir));
-  t.scrollTo({ left: i * t.clientWidth, behavior: SUAVE ? 'smooth' : 'auto' });
+  const alvo = Math.max(0, Math.min(n - 1, i));
+  t.scrollTo({ left: alvo * t.clientWidth, behavior: SUAVE ? 'smooth' : 'auto' });
 }
 
+function passarFoto(dir){ irParaFoto(indiceFoto() + dir); }
+
 function sincronizarFoto(){
-  const i = indiceFoto();
-  const dots = document.getElementById('vmDots');
-  [...dots.children].forEach((b, n) => b.setAttribute('aria-current', String(n === i)));
+  const total = fotosVivas().length;
+  const i = Math.min(indiceFoto(), Math.max(0, total - 1));
+
   const conta = document.getElementById('vmConta');
-  conta.textContent = `${i + 1} / ${document.getElementById('vmTrack').children.length}`;
+  if (conta) conta.textContent = (total ? i + 1 : 0) + ' / ' + total;
+
+  const thumbs = document.getElementById('vmThumbs');
+  [...thumbs.children].forEach((b, n) => b.setAttribute('aria-current', String(n === i)));
+  const ativa = thumbs.children[i];
+  if (ativa && ativa.scrollIntoView) ativa.scrollIntoView({ block:'nearest', inline:'nearest' });
+
+  document.getElementById('vmGal').classList.toggle('solo', total < 2);
+}
+
+/* Descarta a foto inexistente junto da sua miniatura */
+function descartarFoto(img){
+  const track = document.getElementById('vmTrack');
+  if (!track) return;
+  const i = [...track.children].indexOf(img);
+  if (i < 0) return;
+  const thumbs = document.getElementById('vmThumbs');
+  if (thumbs.children[i]) thumbs.children[i].remove();
+  img.remove();
+  sincronizarFoto();
 }
 
 function abrirVeiculo(id){
   const v = ESTOQUE.find(x => String(x.id) === String(id));
   if (!v) return;
   montarModal();
-  vmAtual = v;
 
   const fotos = fotosDe(v);
   const consulta = v.preco === 'Sob Consulta';
 
   const track = document.getElementById('vmTrack');
+  const thumbs = document.getElementById('vmThumbs');
+
   track.innerHTML = fotos.map((f, i) =>
-    `<img src="${f}" alt="${v.marca} ${v.modelo} — foto ${i+1}" loading="${i ? 'lazy' : 'eager'}" onerror="this.onerror=null;this.src=FOTO_FALLBACK">`
+    `<img src="${f}" alt="${v.marca} ${v.modelo} — foto ${i+1}" loading="${i < 2 ? 'eager' : 'lazy'}">`
   ).join('');
+  thumbs.innerHTML = fotos.map((f, i) =>
+    `<button class="vm-thumb" type="button" aria-label="Ver foto ${i+1}"><img src="${f}" alt="" loading="lazy"></button>`
+  ).join('');
+
+  /* A capa sempre fica; as candidatas somem sozinhas se não existirem */
+  [...track.children].forEach((img, i) => {
+    if (i === 0) { img.onerror = () => { img.src = FOTO_FALLBACK; img.onerror = null; }; return; }
+    img.onerror = () => descartarFoto(img);
+  });
+
   track.scrollLeft = 0;
-
-  const dots = document.getElementById('vmDots');
-  dots.innerHTML = fotos.map((_, i) =>
-    `<button class="vm-dot" type="button" aria-label="Foto ${i+1}" data-i="${i}"></button>`
-  ).join('');
-  dots.onclick = ev => {
-    const b = ev.target.closest('.vm-dot'); if (!b) return;
-    track.scrollTo({ left: +b.dataset.i * track.clientWidth, behavior: SUAVE ? 'smooth' : 'auto' });
-  };
-
-  document.getElementById('vmGal').classList.toggle('solo', fotos.length < 2);
+  document.getElementById('vmSelo').textContent = v.tag;
 
   const ficha = [
     ['Ano', v.ano],
     ['Quilometragem', v.km === 'N/I' ? 'Consulte' : v.km + ' km'],
     ['Câmbio', v.cambio],
     ['Combustível', v.combustivel || '—'],
-    ['Carroceria', v.carroceria || v.tag],
-    v.cor ? ['Cor', v.cor] : null
-  ].filter(Boolean);
+    v.cor ? ['Cor', v.cor] : ['Carroceria', v.carroceria || v.tag],
+    ['Código', v.id]
+  ];
 
   const opcionais = Array.isArray(v.opcionais) ? v.opcionais : [];
   const msg = `Olá! Tenho interesse no ${v.marca} ${v.modelo} ${v.ano}${consulta ? '' : ' (R$ ' + v.preco + ')'}. Está disponível?`;
 
   document.getElementById('vmIn').innerHTML = `
-    <span class="vm-tag">${v.tag}</span>
     <div class="vm-marca">${v.marca}</div>
     <h2 class="vm-modelo">${v.modelo}</h2>
     <p class="vm-versao">${v.versao}</p>
-    <div class="vm-preco">
-      ${consulta ? '<b class="consulta">Sob consulta</b>' : `<b>R$ ${v.preco}</b>`}
-      <span>À vista ou financiado em até 60×</span>
-    </div>
+    <div class="vm-preco${consulta ? ' consulta' : ''}">${consulta ? 'Sob consulta' : 'R$ ' + v.preco}</div>
+    <div class="vm-preco-sub">À vista ou financiado em até 60×</div>
     <div class="vm-ficha">
       ${ficha.map(([r, d]) => `<div><small>${r}</small><b>${d}</b></div>`).join('')}
     </div>
     ${opcionais.length ? `<div class="vm-opc"><h4>OPCIONAIS</h4><ul>${opcionais.map(o => `<li>${o}</li>`).join('')}</ul></div>` : ''}
     <div class="vm-foot">
-      <a class="btn btn-wa" href="${WA(msg)}" target="_blank" rel="noopener">Falar sobre este carro</a>
+      <a class="btn btn-wa" href="${WA(msg)}" target="_blank" rel="noopener">Falar sobre este veículo</a>
       <a class="btn btn-cor" href="financiamento.html?v=${v.id}">Simular financiamento</a>
     </div>`;
 
@@ -1037,10 +1093,9 @@ function fecharVeiculo(){
   if (!d) return;
   d.classList.remove('open');
   document.body.style.overflow = '';
-  vmAtual = null;
 }
 
-/* Delegação: funciona para os cards que ainda vão ser renderizados */
+/* Delegação: vale para os cards que ainda vão ser renderizados */
 document.addEventListener('click', ev => {
   const b = ev.target.closest('[data-ver]');
   if (!b) return;
