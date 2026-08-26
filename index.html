@@ -534,6 +534,27 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding:62px 0 26
       linear-gradient(90deg, rgba(11,10,9,.7), rgba(11,10,9,.25))
   }
 }
+
+/* ============================================================
+   FILTROS DO ESTOQUE NO CELULAR
+   Fixa, a barra passa de 350px e cobre a tela ao rolar, cortando
+   os cards. No celular ela rola junto com a pagina e fica mais
+   baixa: seletores em duas colunas e chips deslizando na horizontal.
+   ============================================================ */
+@media(max-width:900px){
+  .filters{position:static;top:auto;background:var(--card);backdrop-filter:none;padding:14px;gap:12px}
+  .search-box{flex:1 1 100%}
+  .filters-top{gap:10px}
+  .filters-top select{flex:1 1 calc(50% - 5px);min-width:0;padding:12px 34px 12px 14px;font-size:.82rem}
+  .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+         margin-inline:-14px;padding:2px 14px}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto}
+}
+
+/* O cabecalho e fixo: sem isso a ancora para atras dele */
+section[id],div[id]{scroll-margin-top:88px}
+@media(max-width:820px){section[id],div[id]{scroll-margin-top:76px}}
 </style>
 </head>
 <body>
@@ -1190,7 +1211,16 @@ const DESTAQUES = [];
   document.body.style.overflow='hidden';
   const t=setInterval(()=>{
     p+=Math.random()*24;
-    if(p>=100){p=100;clearInterval(t);setTimeout(()=>{pre.classList.add('done');document.body.style.overflow='';},350);}
+    if(p>=100){p=100;clearInterval(t);setTimeout(()=>{
+      pre.classList.add('done');
+      document.body.style.overflow='';
+      // chegou de outra pagina com #ancora: o preloader travava a rolagem,
+      // entao a posicao se perdia. Reposiciona agora que a tela esta livre.
+      if (location.hash) {
+        const el = document.querySelector(location.hash);
+        if (el) setTimeout(()=>el.scrollIntoView({ behavior:'auto', block:'start' }), 60);
+      }
+    },350);}
     if(fill) fill.style.width=p+'%';
   },170);
 })();
@@ -1204,6 +1234,21 @@ const DESTAQUES = [];
     const a=ev.target.closest('a'); if(!a) return;
     const href=a.getAttribute('href')||'';
     if(!href||href.startsWith('#')||href.startsWith('tel:')||href.startsWith('mailto:')) return;
+    // Ancora da propria pagina (ex.: index.html#local estando no index):
+    // deixa o navegador rolar em vez de recarregar tudo e cair no preloader.
+    try {
+      const alvo = new URL(href, location.href);
+      const norm = p => { const s = p.split('/'); const u = s[s.length-1];
+        if (u === '' || u.toLowerCase() === 'index.html' || u.toLowerCase() === 'index.htm') s[s.length-1] = '';
+        return s.join('/'); };
+      if (alvo.hash && norm(alvo.pathname) === norm(location.pathname)) {
+        ev.preventDefault();
+        const el = document.querySelector(alvo.hash);
+        if (el) { el.scrollIntoView({ behavior: SUAVE ? 'smooth' : 'auto', block: 'start' });
+                  history.replaceState(null, '', alvo.hash); }
+        return;
+      }
+    } catch (e) {}
     if(a.target==='_blank'||a.hostname!==location.hostname) return;
     if(ev.metaKey||ev.ctrlKey||ev.shiftKey) return;
     ev.preventDefault();
