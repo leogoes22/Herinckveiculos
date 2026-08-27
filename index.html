@@ -555,6 +555,12 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding:62px 0 26
 /* O cabecalho e fixo: sem isso a ancora para atras dele */
 section[id],div[id]{scroll-margin-top:88px}
 @media(max-width:820px){section[id],div[id]{scroll-margin-top:76px}}
+
+/* Botao de compartilhar dentro da ficha do veiculo */
+.vm-share{gap:9px}
+.vm-share svg{width:16px;height:16px;flex:none}
+.vm-share.copiado{border-color:var(--ok);color:var(--ok)}
+.vm-share.copiado svg{stroke:var(--ok)}
 </style>
 </head>
 <body>
@@ -1171,6 +1177,10 @@ function abrirVeiculo(id){
     <div class="vm-foot">
       <a class="btn btn-wa" href="${WA(msg)}" target="_blank" rel="noopener">Falar sobre este veículo</a>
       <a class="btn btn-cor" href="financiamento.html?v=${v.id}">Simular financiamento</a>
+      <button class="btn btn-ghost vm-share" type="button" data-share="${v.id}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+        <span>Compartilhar este veículo</span>
+      </button>
     </div>`;
 
   sincronizarFoto();
@@ -1192,6 +1202,72 @@ document.addEventListener('click', ev => {
   if (!b) return;
   ev.preventDefault();
   abrirVeiculo(b.dataset.ver);
+});
+
+
+/* ============================================================
+   COMPARTILHAR UM VEÍCULO
+   Gera um link direto — estoque.html?v=CODIGO — que abre a página
+   já com a ficha daquele carro na tela. É o link que o vendedor
+   manda no WhatsApp em vez do estoque inteiro.
+   ============================================================ */
+
+function linkDoVeiculo(id){
+  const base = new URL('estoque.html', location.href);
+  base.search = '?v=' + encodeURIComponent(id);
+  return base.href;
+}
+
+function textoDoVeiculo(v){
+  const preco = v.preco === 'Sob Consulta' ? 'Sob consulta' : 'R$ ' + v.preco;
+  return `${v.marca} ${v.modelo} ${v.ano} — ${preco} · Herinck Veículos`;
+}
+
+async function compartilharVeiculo(id, botao){
+  const v = ESTOQUE.find(x => String(x.id) === String(id));
+  if (!v) return;
+
+  const url = linkDoVeiculo(id);
+  const titulo = textoDoVeiculo(v);
+
+  /* No celular abre o menu nativo — o vendedor escolhe a conversa direto */
+  if (navigator.share) {
+    try { await navigator.share({ title: titulo, text: titulo, url }); return; }
+    catch (e) { if (e && e.name === 'AbortError') return; }
+  }
+
+  /* No desktop copia e avisa */
+  const aviso = txt => {
+    if (!botao) return;
+    const span = botao.querySelector('span');
+    if (!span) return;
+    const antes = span.textContent;
+    span.textContent = txt;
+    botao.classList.add('copiado');
+    setTimeout(() => { span.textContent = antes; botao.classList.remove('copiado'); }, 2200);
+  };
+
+  try {
+    await navigator.clipboard.writeText(url);
+    aviso('Link copiado!');
+  } catch (e) {
+    /* navegador antigo ou página sem HTTPS */
+    const campo = document.createElement('textarea');
+    campo.value = url;
+    campo.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+    document.body.appendChild(campo);
+    campo.select();
+    try { document.execCommand('copy'); aviso('Link copiado!'); }
+    catch (err) { aviso('Copie: ' + url); }
+    campo.remove();
+  }
+}
+
+document.addEventListener('click', ev => {
+  const b = ev.target.closest('[data-share]');
+  if (!b) return;
+  ev.preventDefault();
+  compartilharVeiculo(b.dataset.share, b);
 });
 
 
