@@ -447,17 +447,18 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding:62px 0 26
 .vm{position:fixed;inset:0;z-index:9400;display:none;align-items:center;justify-content:center;padding:24px}
 .vm.open{display:flex}
 .vm-bg{position:absolute;inset:0;background:rgba(6,5,5,.85);backdrop-filter:blur(6px)}
-.vm-box{position:relative;z-index:2;width:min(1120px,100%);max-height:92vh;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1.12fr .88fr;animation:vmIn .35s cubic-bezier(.2,.7,.2,1)}
+.vm-box{position:relative;z-index:2;width:min(1120px,100%);max-height:92vh;overflow-y:auto;background:var(--card);border:1px solid var(--line);border-radius:20px;display:block;animation:vmIn .35s cubic-bezier(.2,.7,.2,1)}
 @keyframes vmIn{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+.vm-topbar{position:sticky;top:0;height:0;z-index:6}
 .vm-close{position:absolute;top:16px;right:16px;z-index:6;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(11,10,9,.85);backdrop-filter:blur(6px);color:var(--txt);font-size:1.1rem;line-height:1;cursor:pointer;transition:.3s}
 .vm-close:hover{border-color:var(--cor);color:var(--cor-light);transform:rotate(90deg)}
 
 /* Coluna da esquerda */
-.vm-left{background:#0f0d0c;display:flex;flex-direction:column;min-width:0}
-.vm-gal{position:relative;flex:1;min-height:0}
+.vm-left{background:#0f0d0c;display:flex;flex-direction:column;min-width:0;min-height:0}
+.vm-gal{position:relative;flex:0 0 auto;aspect-ratio:4/3;min-height:0}
 .vm-track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
 .vm-track::-webkit-scrollbar{display:none}
-.vm-track img{flex:0 0 100%;scroll-snap-align:center;width:100%;height:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.vm-track img{flex:0 0 100%;scroll-snap-align:center;width:100%;height:100%;aspect-ratio:4/3;object-fit:contain;background:#0f0d0c;display:block}
 .vm-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border-radius:50%;border:1px solid rgba(239,236,223,.22);background:rgba(11,10,9,.7);backdrop-filter:blur(6px);color:var(--txt);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s}
 .vm-arrow svg{width:17px;height:17px}
 .vm-arrow:hover{border-color:var(--cor);color:var(--cor-light);background:rgba(11,10,9,.9)}
@@ -476,27 +477,28 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding:62px 0 26
 .vm-gal.solo ~ .vm-thumbs,.vm-gal.solo .vm-arrow,.vm-gal.solo .vm-conta{display:none}
 
 /* Coluna da direita */
-.vm-in{padding:34px 32px;overflow-y:auto;min-width:0}
+.vm-in{padding:34px 32px;min-width:0}
 .vm-in::-webkit-scrollbar{width:8px}
 .vm-marca{font-size:.72rem;letter-spacing:.16em;color:var(--txt-mut);text-transform:uppercase;font-weight:500}
 .vm-modelo{font-family:'Bebas Neue';font-size:clamp(2.2rem,4vw,3rem);line-height:.95;margin:2px 0 6px}
 .vm-versao{color:var(--txt-mut);font-size:.88rem;font-weight:300;margin-bottom:18px}
+.vm-desc{color:var(--txt-mut);font-size:.86rem;line-height:1.55;margin-bottom:18px}
 .vm-preco{font-family:'Bebas Neue';font-size:2.9rem;color:var(--cor-light);line-height:1;margin-bottom:6px}
 .vm-preco.consulta{font-size:1.9rem}
 .vm-preco-sub{font-size:.74rem;color:var(--txt-dim);letter-spacing:.06em;margin-bottom:22px}
-.vm-ficha{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:22px}
+.vm-ficha{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:22px}
 .vm-ficha div{background:var(--card-2);padding:14px 16px}
 .vm-ficha small{display:block;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:5px}
 .vm-ficha b{font-size:.92rem;font-weight:600}
 .vm-opc h4{font-family:'Bebas Neue';font-size:1.15rem;letter-spacing:.06em;margin-bottom:12px;color:var(--cor-light)}
 .vm-opc ul{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}
 .vm-opc li{font-size:.74rem;color:var(--txt-mut);background:var(--card-2);border:1px solid var(--line);padding:6px 11px;border-radius:50px}
-.vm-foot{display:flex;flex-direction:column;gap:10px;position:sticky;bottom:-34px;background:linear-gradient(180deg,transparent,var(--card) 22%);padding-top:14px}
+.vm-foot{display:flex;flex-direction:column;gap:10px;padding-top:14px}
 .vm-foot .btn{justify-content:center;padding:15px}
 
 @media(max-width:920px){
   .vm{padding:0}
-  .vm-box{grid-template-columns:1fr;max-height:100vh;border-radius:0;overflow-y:auto}
+  .vm-box{max-height:100vh;border-radius:0}
   .vm-track img{aspect-ratio:4/3;height:auto}
   .vm-in{padding:26px 22px 30px}
   .vm-thumb{flex-basis:70px;height:52px}
@@ -955,6 +957,7 @@ function normalizarRemoto(v){
     cambio: v.cambio || 'N/I',
     combustivel: v.combustivel || '',
     cor: v.cor || '',
+    descricao: v.descricao || v.observacao || v.obs || v.detalhes || '',
     opcionais: Array.isArray(v.opcionais) ? v.opcionais.filter(Boolean) : [],
     precoNum: precoN || 0,
     anoNum: anoN || 0,
@@ -1046,7 +1049,7 @@ function montarModal(){
   d.innerHTML = `
     <div class="vm-bg" data-fechar></div>
     <div class="vm-box">
-      <button class="vm-close" type="button" data-fechar aria-label="Fechar">✕</button>
+      <div class="vm-topbar"><button class="vm-close" type="button" data-fechar aria-label="Fechar">✕</button></div>
       <div class="vm-left">
         <div class="vm-gal" id="vmGal">
           <span class="vm-selo" id="vmSelo"></span>
@@ -1136,6 +1139,13 @@ function abrirVeiculo(id){
   if (!v) return;
   montarModal();
 
+  /* Mostra o modal ANTES de montar a galeria: se ele ainda estiver
+     'display:none' quando calculamos a largura do carrossel, o
+     contador e as miniaturas ficam errados até o usuário clicar
+     numa seta (o clique força um novo cálculo). */
+  document.getElementById('vm').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
   const fotos = fotosDe(v);
   const consulta = v.preco === 'Sob Consulta';
 
@@ -1163,9 +1173,10 @@ function abrirVeiculo(id){
     ['Quilometragem', v.km === 'N/I' ? 'Consulte' : v.km + ' km'],
     ['Câmbio', v.cambio],
     ['Combustível', v.combustivel || '—'],
-    v.cor ? ['Cor', v.cor] : ['Carroceria', v.carroceria || v.tag],
+    ['Carroceria', v.carroceria || v.tag],
+    v.cor ? ['Cor', v.cor] : null,
     ['Código', v.id]
-  ];
+  ].filter(Boolean);
 
   const opcionais = Array.isArray(v.opcionais) ? v.opcionais : [];
   const msg = `Olá! Tenho interesse no ${v.marca} ${v.modelo} ${v.ano}${consulta ? '' : ' (R$ ' + v.preco + ')'}. Está disponível?`;
@@ -1174,6 +1185,7 @@ function abrirVeiculo(id){
     <div class="vm-marca">${v.marca}</div>
     <h2 class="vm-modelo">${v.modelo}</h2>
     <p class="vm-versao">${v.versao}</p>
+    ${v.descricao ? `<p class="vm-desc">${v.descricao}</p>` : ''}
     <div class="vm-preco${consulta ? ' consulta' : ''}">${consulta ? 'Sob consulta' : 'R$ ' + v.preco}</div>
     <div class="vm-preco-sub">À vista ou financiado em até 60×</div>
     <div class="vm-ficha">
@@ -1189,9 +1201,7 @@ function abrirVeiculo(id){
       </button>
     </div>`;
 
-  sincronizarFoto();
-  document.getElementById('vm').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(sincronizarFoto);
   document.querySelector('.vm-close').focus();
 }
 
